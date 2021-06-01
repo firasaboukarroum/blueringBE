@@ -14,8 +14,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @Getter
 @Setter
 @Entity
@@ -27,6 +33,8 @@ public class Facility {
 	private long id;
 	
 	private String description;
+	
+
 	private String subDescription;
 	private double actualLimit;
 	private double authorizedAmount;
@@ -49,16 +57,48 @@ public class Facility {
 	private String internalType;
 	private String country;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY, cascade =CascadeType.MERGE)
 	@JoinColumn(name="status_id",referencedColumnName="id",nullable=false)
+	@JsonIgnoreProperties(ignoreUnknown=true)
 	private Status status;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade =CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY, cascade =CascadeType.MERGE)
 	@JoinTable(name="facility_security",
 	joinColumns= { @JoinColumn(name= "facility_id")},
 	inverseJoinColumns= { @JoinColumn(name="security_id")})
+	@JsonIgnoreProperties(ignoreUnknown=true)
 	private List<Security> securities;
 
-	
+	public Facility(String description, String subDescription, double actualLimit, double authorizedAmount,
+			double requestedAmount, double facilityChange, String economicSector, String interestType,
+			double spreadOrRate, Date reviewDate, double interestRate, String interestPeriod, double intervalPeriod,
+			String penaltyRate, double cHDBCommissionPerMill, String sourceOfRepayment, String useOfFunds,
+			String repaymentTerms, double totalNumberOfPayments, Date startingDate, String internalType,
+			String country) {
+		super();
+		this.description = description;
+		this.subDescription = subDescription;
+		this.actualLimit = actualLimit;
+		this.authorizedAmount = authorizedAmount;
+		this.requestedAmount = requestedAmount;
+		this.facilityChange = facilityChange;
+		this.economicSector = economicSector;
+		this.interestType = interestType;
+		this.spreadOrRate = spreadOrRate;
+		this.reviewDate = reviewDate;
+		this.interestRate = interestRate;
+		this.interestPeriod = interestPeriod;
+		this.intervalPeriod = intervalPeriod;
+		this.penaltyRate = penaltyRate;
+		CHDBCommissionPerMill = cHDBCommissionPerMill;
+		this.sourceOfRepayment = sourceOfRepayment;
+		this.useOfFunds = useOfFunds;
+		this.repaymentTerms = repaymentTerms;
+		this.totalNumberOfPayments = totalNumberOfPayments;
+		this.startingDate = startingDate;
+		this.internalType = internalType;
+		this.country = country;
+	}
+	public Facility() {}
 	
 }
