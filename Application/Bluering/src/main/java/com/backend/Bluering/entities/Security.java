@@ -8,10 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 import lombok.Getter;
@@ -34,9 +35,14 @@ public class Security {
 	private double proposedAmount;
 	private double proposedSecurityAmount;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "securities"})
 	@ManyToMany(fetch=FetchType.LAZY, cascade =CascadeType.MERGE, mappedBy="securities")
 	private List<Facility> facilities;
+	
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "securities"})
+	@ManyToMany(fetch=FetchType.LAZY, cascade =CascadeType.MERGE, mappedBy="securities")
+	private List<MoreButton> moreButtons;
 
 	public Security(String description, String subDescription, double currentAmount, double currentSecurityValue,
 			double proposedAmount, double proposedSecurityAmount) {

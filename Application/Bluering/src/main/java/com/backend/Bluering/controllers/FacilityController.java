@@ -31,6 +31,8 @@ public class FacilityController {
 	@Autowired
 	StatusService statusservice;
 	
+	
+	
 	//to get all facilities
 	@GetMapping("all")
     public List<Facility> getFacilities() {
@@ -60,5 +62,7 @@ public class FacilityController {
 		List<Security> securities=facility.getSecurities();
 		return securities;
 	}
+	
+	
 	
 }

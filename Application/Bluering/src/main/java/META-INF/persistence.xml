@@ -7,5 +7,6 @@
 	<class>com.backend.Bluering.entities.Security</class>
 	<class>com.backend.Bluering.entities.Status</class>
 	<class>com.backend.Bluering.entities.Facility</class>
+	<class>com.backend.Bluering.entities.MoreButton</class>
 	</persistence-unit>
 </persistence>

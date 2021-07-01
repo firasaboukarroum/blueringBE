@@ -1,5 +1,6 @@
 package com.backend.Bluering.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class FacilityService {
     public Facility findFacilityById(Long id) {
     	return facilityRepository.getById(id);
     }
+   
     
 	
 }
